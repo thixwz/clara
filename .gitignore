@@ -1,0 +1,6 @@
+models/
+*.gguf
+llama.cpp/build/
+*.exe
+__pycache__/
+.env
