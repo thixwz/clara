@@ -1,42 +1,97 @@
-# Flutter
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.packages
-build/
-.pub-cache/
+########################################
+#            GLOBAL IGNORE             #
+########################################
 
-# VSCode / IntelliJ
-.vscode/
-.idea/
-
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.env
-venv/
-ENV/
-
-# OS
+# OS files
 .DS_Store
 Thumbs.db
-
-# Backend model/data
-MedAI/ai_backend/models/
-MedAI/ai_backend/vectorstore/
-MedAI/uploads/
 
 # Logs
 *.log
 logs/
 
-ClaraDocs/
+########################################
+#            PYTHON BACKEND            #
+########################################
 
-# llama.cpp and related binaries
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.env
+venv/
+ENV/
+.venv/
+
+# Data dumps / pickle
+*.pkl
+
+# OCR extracted temporary text files
+*.png.txt
+
+########################################
+#          BACKEND DIRECTORIES         #
+########################################
+
+# Llama.cpp (external dependency)
 MedAI/ai_backend/llama.cpp/
+
+# Large model files (GGUF)
 MedAI/ai_backend/models/
+
+# FAISS vector store / index
 MedAI/ai_backend/vectorstore/
+MedAI/ai_backend/faiss_index.idx
+
+# Uploads / temp OCR output
 MedAI/ai_backend/temp_uploads/
 MedAI/ai_backend/data/
+
+# Older mistaken path
+MedAI/uploads/
+
+########################################
+#           FLUTTER FRONTEND           #
+########################################
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.packages
+
+# Build outputs
+build/
+*/build/
+
+# Android
+android/.gradle/
+android/app/debug.keystore
+*.jks
+**/android/local.properties
+
+# iOS / macOS
+ios/Pods/
+ios/.generated/
+ios/Flutter/Flutter.podspec
+macos/Flutter/ephemeral/
+
+# Web build cache
+web/.dart_tool/
+
+########################################
+#           IDE / EDITOR FILES         #
+########################################
+
+.vscode/
+.idea/
+
+########################################
+#           PROJECT DOCS               #
+########################################
+
+ClaraDocs/
