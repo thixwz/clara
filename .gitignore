@@ -1,0 +1,42 @@
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+.pub-cache/
+
+# VSCode / IntelliJ
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+ENV/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backend model/data
+MedAI/ai_backend/models/
+MedAI/ai_backend/vectorstore/
+MedAI/uploads/
+
+# Logs
+*.log
+logs/
+
+ClaraDocs/
+
+# llama.cpp and related binaries
+MedAI/ai_backend/llama.cpp/
+MedAI/ai_backend/models/
+MedAI/ai_backend/vectorstore/
+MedAI/ai_backend/temp_uploads/
+MedAI/ai_backend/data/

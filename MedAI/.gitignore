@@ -1,0 +1,6 @@
+# llama.cpp and related binaries
+MedAI/ai_backend/llama.cpp/
+
+MedAI/ai_backend/models/
+MedAI/ai_backend/vectorstore/
+MedAI/ai_backend/temp_uploads/
