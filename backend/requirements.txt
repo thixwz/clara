@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+pymongo
+python-multipart
+pydantic
+pymupdf
+langchain
+langchain-community
+langchain-huggingface
+faiss-cpu
+sentence-transformers
+llama-cpp-python

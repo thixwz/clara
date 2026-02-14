@@ -1,5 +1,3 @@
-# api_server.py
-
 import os
 import time
 import shutil
@@ -10,6 +8,7 @@ import uuid
 from typing import Optional, List
 
 import fitz  # PyMuPDF
+from llama_cpp import Llama 
 from pymongo import MongoClient, ASCENDING, DESCENDING
 from fastapi import FastAPI, HTTPException, UploadFile, File, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,7 +22,6 @@ from query import search_documents
 # FastAPI app
 # ------------------------------------------------------------------------------
 app = FastAPI(title="Clara Medical AI API")
-
 # ------------------------------------------------------------------------------
 # MongoDB (Atlas)
 # ------------------------------------------------------------------------------
@@ -51,6 +49,17 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+MODEL_PATH = "/app/models/medalpaca.gguf" 
+
+print(f"Loading AI... Path: {MODEL_PATH}")
+try:
+    # n_gpu_layers=0 means CPU only (Safe for Docker)
+    llm = Llama(model_path=MODEL_PATH, n_ctx=2048, n_gpu_layers=0, verbose=False)
+    print("AI Loaded!")
+except Exception as e:
+    print(f"AI Load Failed: {e}")
+    llm = None
 
 # ------------------------------------------------------------------------------
 # Models
@@ -124,28 +133,21 @@ def generate_prompt(query: str, user_id: str, session_id: str) -> Optional[str]:
     return prompt
 
 def ask_medalpaca(prompt: str) -> Optional[str]:
-    llama_exec = r"C:\Users\ASUS\Documents\CLARA\MedAI\ai_backend\llama.cpp\build\bin\Release\llama-run.exe"
-    model_path = r"C:\Users\ASUS\Documents\CLARA\MedAI\ai_backend\models\medalpaca.gguf"
-    cmd = [
-        llama_exec,
-        f"file://{model_path}",
-        "--temp", "0.7",
-        "-t", "4",
-        "--n-predict", "16",   # keep small for speed
-        "--ngl", "20",
-        "--", prompt,
-    ]
+    if llm is None:
+        return "Error: AI not loaded."
+    
     try:
-        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
-        print("LLAMA STDOUT:", proc.stdout)
-        print("LLAMA STDERR:", proc.stderr)
-        if proc.returncode != 0:
-            return None
-        return proc.stdout.strip()
+        # Direct Python Call (Fast!)
+        output = llm(
+            prompt,
+            max_tokens=256,
+            stop=["User:", "\n\n"],
+            echo=False
+        )
+        return output['choices'][0]['text'].strip()
     except Exception as e:
-        print("Error calling MedAlpaca:", e)
+        print("Inference Error:", e)
         return None
-
 # ------------------------------------------------------------------------------
 # Endpoints
 # ------------------------------------------------------------------------------

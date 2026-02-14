@@ -1,0 +1,13 @@
+# Ignore the Heavy Model (CRITICAL)
+backend/models/*.gguf
+backend/models/*.bin
+
+# Ignore Python Junk
+backend/__pycache__/
+*.pyc
+
+# Ignore Generated Data (Vector Stores)
+backend/vectorstore/
+backend/*.pkl
+backend/*.idx
+backend/data/
