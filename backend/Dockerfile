@@ -20,11 +20,19 @@ RUN apt-get update && apt-get install -y \
 
 # 5. Copy requirements first
 # (This caches the installation so future builds are faster)
+# 5. Copy requirements
 COPY requirements.txt .
 
-# 6. Install Libraries
+# 6. Install Standard Libraries
 RUN pip install --no-cache-dir -r requirements.txt
 
+# 7. FORCE INSTALL PRE-BUILT LLAMA-CPP (The Fix)
+# This command tells pip: "Only look at this specific URL for the wheel"
+RUN pip install llama-cpp-python \
+    --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu \
+    --prefer-binary \
+    --no-cache-dir
+    
 # 7. Copy your actual code
 COPY . .
 

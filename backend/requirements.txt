@@ -4,9 +4,11 @@ pymongo
 python-multipart
 pydantic
 pymupdf
-langchain
+# We use a smaller version of langchain to save time
+langchain-core
 langchain-community
 langchain-huggingface
+# Pre-built FAISS (No compilation)
 faiss-cpu
 sentence-transformers
-llama-cpp-python
+# THE MAGIC LINE: This forces pip to download the pre-built wheel
