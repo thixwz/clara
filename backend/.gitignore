@@ -1,3 +1,4 @@
+backend/.env
 # Ignore the Heavy Model (CRITICAL)
 backend/models/*.gguf
 backend/models/*.bin
@@ -11,3 +12,5 @@ backend/vectorstore/
 backend/*.pkl
 backend/*.idx
 backend/data/
+
+

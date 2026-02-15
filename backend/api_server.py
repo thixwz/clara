@@ -25,10 +25,10 @@ app = FastAPI(title="Clara Medical AI API")
 # ------------------------------------------------------------------------------
 # MongoDB (Atlas)
 # ------------------------------------------------------------------------------
-MONGO_URI = os.getenv(
-    "MONGO_URI",
-    "mongodb+srv://clarathiirez:articmonkeys@clara.qmss4jf.mongodb.net/?retryWrites=true&w=majority&appName=clara",
-)
+MONGO_URI = os.getenv("MONGO_URI")
+if not MONGO_URI:
+    raise ValueError("No MONGO_URI set for MongoDB connection")
+
 client = MongoClient(MONGO_URI)
 db = client["clara_db"]
 chats_collection = db["chat_history"]
